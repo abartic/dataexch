@@ -19,7 +19,7 @@ export class commSignalRService {
 
   private createConnection() {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl("/chat")
+      .withUrl("/messages")
       .build();
   }
 

@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     this.msgService.onMessageReceived.subscribe((message) => {
       //this.messageHistory.push(message);
       const modalRef = this.modalService.open(LockDialog);
-      modalRef.componentInstance.message = this.message;
+      modalRef.componentInstance.message = message;
     });
   }
 

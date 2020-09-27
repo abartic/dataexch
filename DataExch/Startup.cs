@@ -60,10 +60,15 @@ namespace DataExch
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<CommunicationHub>("/chat");
-            });
+            // app.UseSignalR(routes =>
+            // {
+            //     routes.MapHub<CommunicationHub>("/chat");
+            // });
+            app.UseEndpoints(endpoints =>
+               {
+                   endpoints.MapHub<CommunicationHub>("/messages");
+               });
+
 
             app.UseSpa(spa =>
             {
