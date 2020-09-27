@@ -28,7 +28,7 @@ export class commSignalRService {
       console.log('Connection started');
     }).catch(err => {
       console.error(err);
-      //setTimeout(this.startConnection(), 5000);
+        setTimeout(this.startConnection, 5000);
     });
   }
 
