@@ -11,7 +11,7 @@ namespace DataExch.Hubs
 
         public async Task SendMessage(string message)
         {
-	  await Clients.All.SendAsync("ReceiveMessage", message);
+	        await Clients.AllExcept(this.Context.ConnectionId).SendAsync("ReceiveMessage", message);
         }
 
     }

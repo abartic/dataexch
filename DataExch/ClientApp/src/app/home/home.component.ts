@@ -12,37 +12,36 @@ export class HomeComponent implements OnInit {
   message: any;
   messageHistory: any[];
 
-  public forecasts: WeatherForecast[];
+  public stockinfos: StockInfo[];
 
   
 
-  constructor(private chatService: commSignalRService, private modalService: NgbModal, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private msgService: commSignalRService, private modalService: NgbModal, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.messageHistory = [];
-    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
-      this.forecasts = result;
+    http.get<StockInfo[]>(baseUrl + 'stockinfo').subscribe(result => {
+      this.stockinfos = result;
     }, error => console.error(error));
   }
 
   ngOnInit() {
-    this.chatService.onMessageReceived.subscribe((message) => {
-      this.messageHistory.push(message);
+    this.msgService.onMessageReceived.subscribe((message) => {
+      //this.messageHistory.push(message);
+      const modalRef = this.modalService.open(LockDialog);
+      modalRef.componentInstance.message = this.message;
     });
   }
 
   reqLock() {
-    this.chatService.sendMessage(this.message);
-    this.message = 'lock req';
-
-    const modalRef = this.modalService.open(LockDialog);
-    modalRef.componentInstance.message = this.message;
+    this.message = 'Price changed!';
+    this.msgService.sendMessage(this.message);
   }
 
 }
 
 
-interface WeatherForecast {
+interface StockInfo {
   date: string;
-  temperatureC: number;
-  temperatureF: number;
+  openPrice: number;
+  closePrice: number;
   summary: string;
 }
