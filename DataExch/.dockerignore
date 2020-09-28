@@ -1,4 +1,7 @@
 # .dockerignore
 
-bin/
-obj/
+**/bin
+**/obj
+**/.git
+**/.git
+**/node_modules
